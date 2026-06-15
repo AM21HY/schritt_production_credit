@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>特殊コマンド</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin: 0;
+    font-family: 'Noto Sans JP', sans-serif;
+  }
+
+  .top-nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 10px 20px 30px 20px;
+  }
+
+  .left-logo { height: 50px; }
+  .menu-icon { height: 150px; }
+
+  .container {
+    max-width: 600px;
+    margin: 40px auto;
+    text-align: center;
+  }
+
+  .card {
+    background: #fff;
+    padding: 30px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    text-align: left;
+  }
+
+  .title-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1px;
+  }
+
+  .title-logo-big {
+    height: 180px;
+    display: block;
+  }
+
+  select, input[type=range] {
+    width: 100%;
+    margin: 10px 0;
+    padding: 8px;
+    font-size: 15px;
+  }
+
+  button.button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    font-size: 16px;
+    border-radius: 6px;
+    border: none;
+    background-color: #2196F3;
+    color: #fff;
+    cursor: pointer;
+  }
+
+  .copy-btn {
+    background: #4CAF50;
+    color: #fff;
+    padding: 8px 14px;
+    border: none;
+    margin-top: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  pre.command-output {
+    background: #f3f3f3;
+    padding: 10px;
+    border-radius: 6px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: auto;
+    margin-top: 10px;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="top-nav">
+  <a href="../"><img src="../images/m_logo.png" class="left-logo" alt="TOP"></a>
+  <a href="../"><img src="../images/TOP textlogo.png" class="menu-icon"></a>
+  <a href="../special/"><img src="../images/special textlogo.png" class="menu-icon"></a>
+  <a href="../items/"><img src="../images/item textlogo.png" class="menu-icon"></a>
+  <a href="../enemy/"><img src="../images/enemy textlogo.png" class="menu-icon"></a>
+  <a href="../friendly/"><img src="../images/friendly textlogo.png" class="menu-icon"></a>
+</div>
+
+<div class="container">
+<div class="card">
+
+  <div class="title-wrap">
+    <img src="../images/special textlogo.png" class="title-logo-big" alt="特殊タイトル">
+  </div>
+
+  <label>コマンドを選択：</label>
+  <select id="commandSelect" onchange="changeEffectUI()">
+    <option value="">選択してください</option>
+
+    <!--  落とし穴 / 設置 -->
+    <option disabled>―― 落とし穴 / 設置 ――</option>
+    <option value="fill_air">落とし穴</option>
+    <option value="set_lava">プレイヤー頭上にマグマ設置</option>
+
+    <!--  召喚 / TNT -->
+    <option disabled>―― 召喚 / TNT設置 ――</option>
+    <option value="summon_lightning">雷を召喚</option>
+    <option value="tnt_set">TNT設置＆召喚</option>
+
+    <!--  キル系 -->
+    <option disabled>―― キル系（MOB） ――</option>
+    <option value="kill_all">全MOB消去（プレイヤー以外）</option>
+    <option value="kill_elder">エルダーガーディアン</option>
+    <option value="kill_evoker">エヴォーカー</option>
+    <option value="kill_ender_dragon">エンダードラゴン</option>
+    <option value="kill_blaze">ブレイズ</option>
+    <option value="kill_breeze">ブリーズ</option>
+    <option value="kill_brute">ピグリンブルート</option>
+    <option value="kill_vindicator">ヴィンディケーター</option>
+    <option value="kill_phantom">ファントム</option>
+    <option value="kill_shulker">シュルカー</option>
+    <option value="kill_wither">ウィザー</option>
+    <option value="kill_warden">ウォーデン</option>
+
+    <!--  天気コマンド -->
+    <option disabled>―― 天気 ――</option>
+    <option value="weather_clear">晴れ</option>
+    <option value="weather_rain">雨</option>
+    <option value="weather_thunder">雷雨</option>
+    <option value="weather_lock_clear">晴れ固定</option>
+    <option value="weather_lock_rain">雨固定</option>
+    <option value="weather_lock_thunder">雷雨固定</option>
+    <option value="weather_cycle_start">天気サイクル再開</option>
+
+    <!--  時間コマンド -->
+    <option disabled>―― 時間コマンド ――</option>
+    <option value="time_day">朝</option>
+    <option value="time_sunset">夕方</option>
+    <option value="time_night">夜</option>
+    <option value="time_midnight">深夜</option>
+    <option value="time_stop">昼夜サイクル停止</option>
+    <option value="time_start">昼夜サイクル再開</option>
+
+    <!--  効果コマンド -->
+    <option disabled>―― 効果コマンド ――</option>
+    <option value="effect_clear">全効果削除（牛乳と同じ）</option>
+    <!--  効果一覧 -->
+    <option value="absorption">衝撃吸収</option>
+    <option value="blindness">盲目</option>
+    <option value="fire_resistance">火炎耐性</option>
+    <option value="haste">発掘速度上昇</option>
+    <option value="health_boost">体力増強</option>
+    <option value="hunger">空腹</option>
+    <option value="instant_damage">即時ダメージ</option>
+    <option value="instant_health">即時回復</option>
+    <option value="levitation">浮遊</option>
+    <option value="luck">幸運</option>
+    <option value="mining_fatigue">採掘速度低下</option>
+    <option value="nausea">吐き気</option>
+    <option value="poison">毒</option>
+    <option value="resistance">耐性</option>
+    <option value="saturation">満腹度回復</option>
+
+    <option value="slowness_4">移動速度低下Ⅳ</option>
+    <option value="speed">移動速度上昇</option>
+
+    <option value="strength">攻撃力上昇</option>
+    <option value="unluck">不幸</option>
+    <option value="water_breathing">水中呼吸</option>
+    <option value="weakness">弱体化</option>
+    <option value="wither">衰弱</option>
+
+  </select>
+
+
+<!-- ▼▼▼ 時間バー ▼▼▼ -->
+
+<!-- タイプA（10 / 20 / 30） -->
+<div id="timeA_box" style="display:none;">
+  <label>効果時間：</label>
+  <input type="range" id="timeA" min="1" max="3" value="1"
+    oninput="timeALabel.textContent = (this.value==1?'短い(10秒)':this.value==2?'中(20秒)':'長い(30秒)')">
+  <div><strong id="timeALabel">短い(10秒)</strong></div>
+</div>
+
+<!-- タイプB（5 / 10 / 15） -->
+<div id="timeB_box" style="display:none;">
+  <label>効果時間：</label>
+  <input type="range" id="timeB" min="1" max="3" value="1"
+    oninput="timeBLabel.textContent = (this.value==1?'短い(5秒)':this.value==2?'中(10秒)':'長い(15秒)')">
+  <div><strong id="timeBLabel">短い(5秒)</strong></div>
+</div>
+
+<!-- タイプC（体力増強 5 / 10） -->
+<div id="timeC_box" style="display:none;">
+  <label>効果時間：</label>
+  <input type="range" id="timeC" min="1" max="2" value="1"
+    oninput="timeCLabel.textContent = (this.value==1?'短い(5秒)':'長い(10秒)')">
+  <div><strong id="timeCLabel">短い(5秒)</strong></div>
+</div>
+
+<!-- 即時ダメージ -->
+<div id="instant_box" style="display:none;">
+  <label>ダメージ量：</label>
+  <input type="range" id="instant" min="1" max="3" value="1"
+    oninput="instantLabel.textContent = (this.value==1?'小量(2)':this.value==2?'中(5)':'大(7)')">
+  <div><strong id="instantLabel">小量(2)</strong></div>
+</div>
+
+<!-- 即時回復：バーなし -->
+<div id="heal_box" style="display:none;">
+  <strong>即時回復には時間設定はありません</strong>
+</div>
+
+
+<button class="button" onclick="generateCommand()">コマンド生成</button>
+
+<pre class="command-output" id="output"></pre>
+<button class="copy-btn" onclick="copyCommand()">コピー</button>
+
+</div>
+</div>
+
+<script>
+/* 効果の種類に応じて バーの切り替え */
+function changeEffectUI(){
+  const v = document.getElementById("commandSelect").value;
+
+  // 全部非表示
+  document.getElementById("timeA_box").style.display = "none";
+  document.getElementById("timeB_box").style.display = "none";
+  document.getElementById("timeC_box").style.display = "none";
+  document.getElementById("instant_box").style.display = "none";
+  document.getElementById("heal_box").style.display = "none";
+
+  // ▼ タイプA（10 / 20 / 30）
+  const typeA = [
+    "absorption","fire_resistance","haste","hunger","luck",
+    "mining_fatigue","resistance","slowness_4",
+    "speed","strength","water_breathing"
+  ];
+
+  // ▼ タイプB（5 / 10 / 15）
+  const typeB = [
+    "blindness","weakness","poison","wither",
+    "saturation","levitation","unluck","nausea"
+  ];
+
+  if(typeA.includes(v))
+    document.getElementById("timeA_box").style.display="block";
+  else if(typeB.includes(v))
+    document.getElementById("timeB_box").style.display="block";
+  else if(v==="health_boost")
+    document.getElementById("timeC_box").style.display="block";
+  else if(v==="instant_damage")
+    document.getElementById("instant_box").style.display="block";
+  else if(v==="instant_health")
+    document.getElementById("heal_box").style.display="block";
+}
+
+
+/* ▼ コマンド生成 */
+function generateCommand() {
+  const v = document.getElementById("commandSelect").value;
+  let cmd = "";
+
+  switch(v){
+    case "fill_air": cmd = `/execute as @p at @p run fill ~-1 ~-2 ~-1 ~1 ~-1 ~1 air replace`; break;
+    case "set_lava": cmd = `/execute at @p run setblock ~ ~2 ~ lava`; break;
+    case "summon_lightning": cmd = `/execute at @p run summon lightning_bolt ~ ~ ~`; break;
+    case "tnt_set":
+      cmd = `execute as {playername} at @s run fill ~-2 ~-3 ~-2 ~2 ~-1 ~2 tnt[unstable=true] replace
+execute as {playername} at @s run summon tnt ~ ~ ~ {fuse:20}`;
+      break;
+
+    case "kill_all": cmd = `/kill @e[type=!player]`; break;
+    case "kill_ender_dragon": cmd = `/kill @e[type=ender_dragon]`; break;
+    case "kill_warden": cmd = `/kill @e[type=warden]`; break;
+    case "kill_wither": cmd = `/kill @e[type=wither]`; break;
+    case "kill_elder": cmd = `/kill @e[type=elder_guardian]`; break;
+    case "kill_brute": cmd = `/kill @e[type=piglin_brute]`; break;
+    case "kill_vindicator": cmd = `/kill @e[type=vindicator]`; break;
+    case "kill_evoker": cmd = `/kill @e[type=evoker]`; break;
+    case "kill_phantom": cmd = `/kill @e[type=phantom]`; break;
+    case "kill_shulker": cmd = `/kill @e[type=shulker]`; break;
+    case "kill_blaze": cmd = `/kill @e[type=blaze]`; break;
+    case "kill_breeze": cmd = `/kill @e[type=breeze]`; break;
+
+    case "weather_clear": cmd = `/weather clear`; break;
+    case "weather_rain": cmd = `/weather rain`; break;
+    case "weather_thunder": cmd = `/weather thunder`; break;
+    case "weather_lock_clear": cmd = `/weather clear\n/gamerule doWeatherCycle false`; break;
+    case "weather_lock_rain": cmd = `/weather rain\n/gamerule doWeatherCycle false`; break;
+    case "weather_lock_thunder": cmd = `/weather thunder\n/gamerule doWeatherCycle false`; break;
+    case "weather_cycle_start": cmd = `/gamerule doWeatherCycle true`; break;
+
+    case "time_day": cmd = `/time set day`; break;
+    case "time_sunset": cmd = `/time set sunset`; break;
+    case "time_night": cmd = `/time set night`; break;
+    case "time_midnight": cmd = `/time set midnight`; break;
+    case "time_stop": cmd = `/gamerule doDaylightCycle false`; break;
+    case "time_start": cmd = `/gamerule doDaylightCycle true`; break;
+  }
+
+  /* 効果コマンド生成 */
+
+  // タイプA
+  const secA = (document.getElementById("timeA").value==1 ? 10 :
+                document.getElementById("timeA").value==2 ? 20 : 30);
+
+  // タイプB
+  const secB = (document.getElementById("timeB").value==1 ? 5 :
+                document.getElementById("timeB").value==2 ? 10 : 15);
+
+  // タイプC（体力増強）
+  const secC = (document.getElementById("timeC").value==1 ? 5 : 10);
+
+  // 即時ダメージ
+  const dmg = (document.getElementById("instant").value==1 ? 2 :
+               document.getElementById("instant").value==2 ? 5 : 7);
+
+  /* ▼ 効果コマンド */
+  switch(v){
+
+    case "absorption": cmd = `/effect give @p absorption ${secA} 0`; break;
+    case "blindness": cmd = `/effect give @p blindness ${secB} 0`; break;
+    case "fire_resistance": cmd = `/effect give @p fire_resistance ${secA} 0`; break;
+    case "haste": cmd = `/effect give @p haste ${secA} 0`; break;
+    case "health_boost": cmd = `/effect give @p health_boost ${secC} 0`; break;
+    case "hunger": cmd = `/effect give @p hunger ${secA} 0`; break;
+    case "instant_damage": cmd = `/effect give @p instant_damage 1 ${dmg}`; break;
+    case "instant_health": cmd = `/effect give @p instant_health 1 1`; break;
+    case "levitation": cmd = `/effect give @p levitation ${secB} 0`; break;
+    case "luck": cmd = `/effect give @p luck ${secA} 0`; break;
+    case "mining_fatigue": cmd = `/effect give @p mining_fatigue ${secA} 0`; break;
+    case "nausea": cmd = `/effect give @p nausea ${secB} 0`; break;
+    case "poison": cmd = `/effect give @p poison ${secB} 0`; break;
+    case "resistance": cmd = `/effect give @p resistance ${secA} 0`; break;
+    case "saturation": cmd = `/effect give @p saturation ${secB} 0`; break;
+
+    case "slowness_4": cmd = `/effect give @p slowness ${secA} 4`; break;
+
+    case "speed": cmd = `/effect give @p speed ${secA} 0`; break;
+    case "strength": cmd = `/effect give @p strength ${secA} 0`; break;
+    case "unluck": cmd = `/effect give @p unluck ${secB} 0`; break;
+    case "water_breathing": cmd = `/effect give @p water_breathing ${secA} 0`; break;
+    case "weakness": cmd = `/effect give @p weakness ${secB} 0`; break;
+    case "wither": cmd = `/effect give @p wither ${secB} 0`; break;
+
+    case "effect_clear":
+      cmd = `/effect clear @p`;
+      break;
+  }
+
+  document.getElementById("output").textContent = cmd;
+}
+
+
+/* ▼ コピー */
+function copyCommand(){
+  const text = document.getElementById("output").textContent;
+  if (!text) return;
+
+  const temp = document.createElement("textarea");
+  temp.value = text;
+  document.body.appendChild(temp);
+  temp.select();
+  document.execCommand("copy");
+  temp.remove();
+
+  alert("📋 コマンドをコピーしました！");
+}
+</script>
+
+</body>
+</html>
