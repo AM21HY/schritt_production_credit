@@ -1,343 +1,4 @@
 /* =========================
-   基本設定
-========================= */
-
-:root {
-  --background-color: #f5f5f7;
-  --page-color: #ffffff;
-  --text-color: #222222;
-  --sub-text-color: #666666;
-  --border-color: #dedee3;
-  --light-border-color: #ececf0;
-  --link-color: #145bb5;
-  --accent-color: #222222;
-  --soft-background: #f8f8fa;
-  --success-color: #276749;
-  --success-background: #e7f6ed;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  margin: 0;
-  padding: 24px 12px;
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Noto Sans JP",
-    "Yu Gothic",
-    "YuGothic",
-    "Hiragino Kaku Gothic ProN",
-    system-ui,
-    sans-serif;
-  line-height: 1.7;
-  background: var(--background-color);
-  color: var(--text-color);
-}
-
-a {
-  color: inherit;
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-
-/* =========================
-   ページ全体
-========================= */
-
-.page {
-  width: 100%;
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 32px 36px;
-  background: var(--page-color);
-  border-radius: 14px;
-  box-shadow: 0 5px 24px rgba(0, 0, 0, 0.06);
-}
-
-
-/* =========================
-   ヘッダー
-========================= */
-
-.site-header {
-  display: flex;
-  align-items: center;
-  gap: 28px;
-  width: 100%;
-  padding: 24px 0 20px;
-  border-bottom: 1px solid var(--border-color);
-}
-
-
-/* =========================
-   ロゴ
-========================= */
-
-.logo-link {
-  display: inline-flex;
-  flex-shrink: 0;
-  align-items: center;
-  text-decoration: none;
-}
-
-.site-logo {
-  display: block;
-  width: auto;
-  height: 55px;
-  margin: 0;
-}
-
-
-/* =========================
-   ナビゲーション
-========================= */
-
-.global-nav {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 14px;
-  width: auto;
-  padding: 0;
-  border: none;
-  text-align: left;
-}
-
-.nav-link {
-  position: relative;
-  display: inline-block;
-  flex-shrink: 0;
-  padding: 4px 2px;
-  color: #555555;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  text-decoration: none;
-  transition:
-    color 0.25s ease,
-    transform 0.25s ease;
-}
-
-.nav-link::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  bottom: -6px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  margin: auto;
-  background: var(--accent-color);
-  transition: width 0.25s ease;
-}
-
-.nav-link:hover {
-  color: var(--text-color);
-  transform: translateY(-1px);
-}
-
-.nav-link:hover::after,
-.nav-link.active::after {
-  width: 100%;
-}
-
-.nav-link.active {
-  color: var(--text-color);
-}
-
-.nav-separator {
-  flex-shrink: 0;
-  color: #bbbbc1;
-  font-size: 13px;
-}
-
-
-/* =========================
-   メインコンテンツ
-========================= */
-
-.main-content {
-  padding: 54px 0 16px;
-}
-
-.page-title {
-  margin: 0 0 34px;
-  font-size: clamp(28px, 5vw, 42px);
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: 0.08em;
-  text-align: center;
-}
-
-.page-title::after {
-  content: "";
-  display: block;
-  width: 42px;
-  height: 2px;
-  margin: 18px auto 0;
-  background: var(--accent-color);
-}
-
-.page-subtitle {
-  max-width: 720px;
-  margin: -14px auto 40px;
-  color: var(--sub-text-color);
-  font-size: 14px;
-  text-align: center;
-}
-
-.content-section {
-  margin-top: 12px;
-}
-
-.section-title {
-  margin: 0 0 22px;
-  padding-left: 12px;
-  border-left: 4px solid var(--accent-color);
-  font-size: 19px;
-  line-height: 1.5;
-}
-
-
-/* =========================
-   HOME
-========================= */
-
-.intro-box {
-  padding: 27px 30px;
-  background: var(--soft-background);
-  border: 1px solid var(--light-border-color);
-  border-radius: 10px;
-}
-
-.lead {
-  margin: 0 0 16px;
-  font-size: 16px;
-}
-
-.note {
-  margin: 0;
-  color: #555555;
-  font-size: 13px;
-}
-
-.home-menu {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 30px;
-}
-
-.menu-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: 150px;
-  padding: 25px 54px 25px 25px;
-  overflow: hidden;
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  color: var(--text-color);
-  text-decoration: none;
-  transition:
-    transform 0.3s ease,
-    box-shadow 0.3s ease,
-    border-color 0.3s ease;
-}
-
-.menu-card:hover {
-  transform: translateY(-4px);
-  border-color: #bdbdc5;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.08);
-}
-
-.menu-card-en {
-  margin-bottom: 12px;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-}
-
-.menu-card-ja {
-  color: var(--sub-text-color);
-  font-size: 13px;
-}
-
-.menu-card-arrow {
-  position: absolute;
-  right: 23px;
-  bottom: 21px;
-  font-size: 25px;
-  line-height: 1;
-  transition: transform 0.3s ease;
-}
-
-.menu-card:hover .menu-card-arrow {
-  transform: translateX(5px);
-}
-
-
-/* =========================
-   Credit
-========================= */
-
-.credit-list {
-  border-top: 1px solid var(--border-color);
-}
-
-.credit-item {
-  margin: 0;
-  padding: 19px 8px;
-  border-bottom: 1px solid var(--light-border-color);
-  transition:
-    background-color 0.25s ease,
-    padding-left 0.25s ease;
-}
-
-.credit-item:hover {
-  padding-left: 14px;
-  background: #fafafd;
-}
-
-.credit-item h3 {
-  margin: 0 0 5px;
-  font-size: 15px;
-  font-weight: 600;
-}
-
-.credit-item a {
-  display: inline-block;
-  max-width: 100%;
-  color: var(--link-color);
-  font-size: 13px;
-  text-decoration: none;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-}
-
-.credit-item a:hover {
-  text-decoration: underline;
-}
-
-.item-description {
-  margin: -1px 0 5px;
-  color: var(--sub-text-color);
-  font-size: 12px;
-}
-
-
-/* =========================
    Streaming Permissions
 ========================= */
 
@@ -345,13 +6,15 @@ img {
   display: flex;
   flex-direction: column;
   gap: 30px;
+  width: 100%;
 }
 
 .permission-company {
+  width: 100%;
   overflow: hidden;
+  background: #ffffff;
   border: 1px solid var(--border-color);
   border-radius: 12px;
-  background: #ffffff;
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -362,7 +25,10 @@ img {
   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.07);
 }
 
+/* 企業・権利元 */
+
 .company-heading {
+  width: 100%;
   padding: 22px 25px;
   background: var(--soft-background);
   border-bottom: 1px solid var(--border-color);
@@ -373,16 +39,22 @@ img {
   color: #888890;
   font-size: 10px;
   font-weight: 700;
+  line-height: 1.5;
   letter-spacing: 0.14em;
 }
 
 .company-name {
   margin: 0;
   font-size: 19px;
-  line-height: 1.5;
+  font-weight: 700;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
+/* 作品一覧 */
+
 .permission-works {
+  width: 100%;
   padding: 0 25px;
 }
 
@@ -390,7 +62,8 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 22px;
+  gap: 30px;
+  width: 100%;
   padding: 27px 0;
   border-bottom: 1px solid var(--light-border-color);
 }
@@ -405,41 +78,54 @@ img {
 }
 
 .work-label {
-  margin: 0 0 3px;
+  margin: 0 0 4px;
   color: #888890;
   font-size: 10px;
   font-weight: 700;
+  line-height: 1.5;
   letter-spacing: 0.14em;
 }
 
 .work-title {
-  margin: 0 0 19px;
+  margin: 0 0 20px;
   font-size: 22px;
+  font-weight: 700;
   line-height: 1.4;
+  overflow-wrap: anywhere;
 }
 
+/* 許諾詳細 */
+
 .permission-details {
+  display: block;
+  width: 100%;
   margin: 0;
 }
 
 .detail-row {
   display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 14px;
-  padding: 8px 0;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 16px;
+  width: 100%;
+  padding: 9px 0;
   border-top: 1px dotted #dddddf;
 }
 
 .detail-row dt {
+  margin: 0;
   color: var(--sub-text-color);
   font-size: 13px;
   font-weight: 500;
 }
 
 .detail-row dd {
+  min-width: 0;
   margin: 0;
   font-size: 13px;
+  overflow-wrap: anywhere;
 }
+
+/* 許諾済みバッジ */
 
 .permission-status {
   flex-shrink: 0;
@@ -457,11 +143,14 @@ img {
   border-radius: 999px;
   font-size: 11px;
   font-weight: 700;
+  line-height: 1.4;
   white-space: nowrap;
 }
 
 .status-badge::before {
   content: "";
+  display: block;
+  flex-shrink: 0;
   width: 7px;
   height: 7px;
   background: #35a765;
@@ -469,13 +158,17 @@ img {
   animation: statusGlow 2.2s ease-in-out infinite;
 }
 
+/* 注意事項 */
+
 .permission-notice {
+  width: 100%;
   margin-top: 32px;
   padding: 19px 22px;
   color: #555555;
   background: var(--soft-background);
   border-left: 3px solid #777777;
   font-size: 12px;
+  line-height: 1.8;
 }
 
 .permission-notice p {
@@ -488,149 +181,13 @@ img {
 
 
 /* =========================
-   更新日
-========================= */
-
-.updated {
-  margin: 32px 0 0;
-  color: var(--sub-text-color);
-  font-size: 12px;
-  text-align: right;
-}
-
-
-/* =========================
-   アニメーション
-========================= */
-
-.fade-in {
-  animation: fadeIn 0.7s ease both;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes statusGlow {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(53, 167, 101, 0.2);
-  }
-
-  50% {
-    box-shadow: 0 0 0 5px rgba(53, 167, 101, 0);
-  }
-}
-
-
-/* =========================
-   タブレット・スマートフォン
+   Streaming Permissions
+   スマートフォン対応
 ========================= */
 
 @media (max-width: 760px) {
-  body {
-    padding: 0;
-    background: #ffffff;
-  }
-
-  .page {
-    max-width: none;
-    min-height: 100vh;
-    padding: 0 17px 30px;
-    border-radius: 0;
-    box-shadow: none;
-  }
-
-  .site-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-    padding: 20px 0 14px;
-  }
-
-  .site-logo {
-    height: 48px;
-  }
-
-  .global-nav {
-    width: 100%;
-    gap: 8px;
-    padding: 10px 0 5px;
-    overflow-x: auto;
-    white-space: nowrap;
-    scrollbar-width: none;
-  }
-
-  .global-nav::-webkit-scrollbar {
-    display: none;
-  }
-
-  .nav-link {
-    font-size: 12px;
-  }
-
-  .nav-separator {
-    font-size: 11px;
-  }
-
-  .main-content {
-    padding-top: 42px;
-  }
-
-  .page-title {
-    margin-bottom: 29px;
-    font-size: 29px;
-  }
-
-  .page-subtitle {
-    margin-top: -10px;
-    margin-bottom: 31px;
-    font-size: 12px;
-  }
-
-  .intro-box {
-    padding: 21px 18px;
-  }
-
-  .lead {
-    font-size: 14px;
-  }
-
-  .lead br {
-    display: none;
-  }
-
-  .note {
-    font-size: 12px;
-  }
-
-  .home-menu {
-    grid-template-columns: 1fr;
-  }
-
-  .menu-card {
-    min-height: 135px;
-  }
-
-  .section-title {
-    font-size: 17px;
-  }
-
-  .credit-item {
-    padding-right: 3px;
-    padding-left: 3px;
-  }
-
-  .credit-item:hover {
-    padding-left: 7px;
+  .permission-list {
+    gap: 22px;
   }
 
   .company-heading {
@@ -652,82 +209,22 @@ img {
   }
 
   .work-title {
+    margin-bottom: 17px;
     font-size: 19px;
   }
 
   .detail-row {
     grid-template-columns: 1fr;
     gap: 2px;
+    padding: 9px 0;
   }
 
   .permission-status {
     padding-top: 0;
   }
 
-  .updated {
-    text-align: left;
-  }
-}
-
-
-/* =========================
-   小さいスマートフォン
-========================= */
-
-@media (max-width: 420px) {
-  .page {
-    padding-right: 14px;
-    padding-left: 14px;
-  }
-
-  .site-logo {
-    height: 44px;
-  }
-
-  .global-nav {
-    gap: 6px;
-  }
-
-  .nav-link {
-    font-size: 11px;
-  }
-
-  .nav-separator {
-    font-size: 10px;
-  }
-
-  .page-title {
-    font-size: 26px;
-  }
-
-  .intro-box {
-    padding: 18px 15px;
-  }
-
-  .menu-card {
-    padding: 22px 48px 22px 20px;
-  }
-
-  .menu-card-en {
-    font-size: 16px;
-  }
-}
-
-
-/* =========================
-   動きを減らす設定への対応
-========================= */
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+  .permission-notice {
+    margin-top: 25px;
+    padding: 17px 18px;
   }
 }
